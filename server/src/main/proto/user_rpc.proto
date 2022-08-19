@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_package = "com.deft.grpc.rpc";
+option java_outer_classname = "UserRPCProto";
+
+import "user.proto";
+
+message Request {
+}
+
+message Response {
+  int32 code = 1;
+  string msg = 2;
+  repeated User user = 3;
+}
+
+service UserRPCService {
+  rpc listUsers(Request) returns(stream Response);
+}

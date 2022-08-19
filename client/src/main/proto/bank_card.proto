@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "com.deft.grpc.bank";
+option java_outer_classname = "BankCardProto";
+
+message BankCard {
+  string cardExpiryDate = 1;
+  string numberCard = 2;
+  double balance = 3;
+}

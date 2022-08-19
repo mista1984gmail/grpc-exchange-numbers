@@ -1,0 +1,14 @@
+syntax = "proto3";
+option java_package = "com.deft.grpc.dto";
+option java_outer_classname = "UserProto";
+
+import "sex_enum.proto";
+import "bank_card.proto";
+
+message User {
+  int32 age = 1;
+  string name = 2;
+  string email = 3;
+  SexEnum sex = 4;
+  BankCard bankCard = 5;
+}
