@@ -18,6 +18,7 @@ public class UserGRPCClient {
 
     private final ManagedChannel channel;
     private final UserRPCServiceGrpc.UserRPCServiceBlockingStub blockingStub;
+    List<UserRPCProto.Response>list=new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         UserGRPCClient client = new UserGRPCClient("localhost", 3333);
@@ -44,7 +45,6 @@ public class UserGRPCClient {
     }
 
     public void request() {
-        List<UserRPCProto.Response>list=new ArrayList<>();
         UserRPCProto.Request request = UserRPCProto.Request.newBuilder().build();
         Iterator<UserRPCProto.Response> response = blockingStub.listUsers(request);
         while (response.hasNext()) {
@@ -70,12 +70,11 @@ public class UserGRPCClient {
     public LocalDate parseDate(String date){
         return LocalDate.of(2000 + parseStringToInt(date.substring(3,5)),
                         parseStringToInt(date.substring(0,2)), 1)
-                .plusMonths(1);
+                        .plusMonths(1);
     }
 
     public int parseStringToInt(String str){
         return str.startsWith("0") ? Integer.parseInt(str.substring(1)) : Integer.parseInt(str);
     }
-
 
 }

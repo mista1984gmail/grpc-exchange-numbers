@@ -6,7 +6,6 @@ import com.deft.grpc.enums.SexEnumProto;
 import com.deft.grpc.rpc.UserRPCProto;
 import com.deft.grpc.rpc.UserRPCServiceGrpc;
 import com.github.javafaker.Faker;
-import com.google.type.DateTime;
 import io.grpc.stub.StreamObserver;
 
 import java.time.LocalDateTime;
