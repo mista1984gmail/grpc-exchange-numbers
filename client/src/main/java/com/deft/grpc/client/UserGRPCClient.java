@@ -1,5 +1,6 @@
 package com.deft.grpc.client;
 
+import com.deft.grpc.dto.UserProto;
 import com.deft.grpc.rpc.UserRPCProto;
 import com.deft.grpc.rpc.UserRPCServiceGrpc;
 import io.grpc.ManagedChannel;
@@ -18,7 +19,7 @@ public class UserGRPCClient {
 
     private final ManagedChannel channel;
     private final UserRPCServiceGrpc.UserRPCServiceBlockingStub blockingStub;
-    List<UserRPCProto.Response>list=new ArrayList<>();
+    List<UserProto.User>list=new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         UserGRPCClient client = new UserGRPCClient("localhost", 3333);
@@ -45,25 +46,24 @@ public class UserGRPCClient {
     }
 
     public void request() {
+
         UserRPCProto.Request request = UserRPCProto.Request.newBuilder().build();
         Iterator<UserRPCProto.Response> response = blockingStub.listUsers(request);
         while (response.hasNext()) {
-            list.add(response.next());
+            var user = response.next().getUser(0);
+            LocalDate expiryDate = parseDate(user.getBankCard().getCardExpiryDate());
+            LocalDate dateLessThanThreeMonths = LocalDate.now().plusDays(90);
+            if (expiryDate.isBefore(dateLessThanThreeMonths)) {
+                logger.info("send email to: {}", user.getEmail());
+                logger.info("Dear, {} ! Your card is expiring: {}. Contact your bank to extend the expiration date.",
+                        user.getName(),
+                        user.getBankCard().getCardExpiryDate());
+            }
+            list.add(user);
         }
         list.stream()
-                .map(e -> e.getUser(0))
                 .forEach(System.out::println);
 
-        for (int i = 0; i < list.size(); i++) {
-            LocalDate expiryDate = parseDate(list.get(i).getUser(0).getBankCard().getCardExpiryDate());
-            LocalDate dateLessThanThreeMonths = LocalDate.now().plusDays(90);
-            if(expiryDate.isBefore(dateLessThanThreeMonths)){
-                logger.info("send email to: {}", list.get(i).getUser(0).getEmail());
-                logger.info("Dear, {} ! Your card is expiring: {}. Contact your bank to extend the expiration date.",
-                        list.get(i).getUser(0).getName(),
-                        list.get(i).getUser(0).getBankCard().getCardExpiryDate());
-            }
-        }
         channel.shutdownNow();
 
     }
