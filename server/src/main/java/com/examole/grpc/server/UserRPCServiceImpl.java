@@ -1,10 +1,11 @@
-package com.deft.grpc.server;
+package com.examole.grpc.server;
 
-import com.deft.grpc.bank.BankCardProto;
-import com.deft.grpc.dto.UserProto;
-import com.deft.grpc.enums.SexEnumProto;
-import com.deft.grpc.rpc.UserRPCProto;
-import com.deft.grpc.rpc.UserRPCServiceGrpc;
+
+import com.example.grpc.bank.BankCardProto;
+import com.example.grpc.dto.UserProto;
+import com.example.grpc.enums.SexEnumProto;
+import com.example.grpc.rpc.UserRPCProto;
+import com.example.grpc.rpc.UserRPCServiceGrpc;
 import com.github.javafaker.Faker;
 import io.grpc.stub.StreamObserver;
 

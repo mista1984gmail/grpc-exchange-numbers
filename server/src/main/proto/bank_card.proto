@@ -1,5 +1,5 @@
 syntax = "proto3";
-option java_package = "com.deft.grpc.bank";
+option java_package = "com.example.grpc.bank";
 option java_outer_classname = "BankCardProto";
 
 message BankCard {

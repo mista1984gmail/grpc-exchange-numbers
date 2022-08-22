@@ -1,5 +1,5 @@
 syntax = "proto3";
-option java_package = "com.deft.grpc.rpc";
+option java_package = "com.example.grpc.rpc";
 option java_outer_classname = "UserRPCProto";
 
 import "user.proto";

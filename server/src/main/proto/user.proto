@@ -1,5 +1,5 @@
 syntax = "proto3";
-option java_package = "com.deft.grpc.dto";
+option java_package = "com.example.grpc.dto";
 option java_outer_classname = "UserProto";
 
 import "sex_enum.proto";

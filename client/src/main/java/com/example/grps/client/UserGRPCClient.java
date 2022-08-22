@@ -1,8 +1,9 @@
-package com.deft.grpc.client;
+package com.example.grps.client;
 
-import com.deft.grpc.dto.UserProto;
-import com.deft.grpc.rpc.UserRPCProto;
-import com.deft.grpc.rpc.UserRPCServiceGrpc;
+
+import com.example.grpc.dto.UserProto;
+import com.example.grpc.rpc.UserRPCProto;
+import com.example.grpc.rpc.UserRPCServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.slf4j.Logger;
@@ -68,12 +69,12 @@ public class UserGRPCClient {
 
     }
     public LocalDate parseDate(String date){
-        return LocalDate.of(2000 + parseStringToInt(date.substring(3,5)),
-                        parseStringToInt(date.substring(0,2)), 1)
+        return LocalDate.of(2000 + parseStringToIntForDate(date.substring(3,5)),
+                        parseStringToIntForDate(date.substring(0,2)), 1)
                         .plusMonths(1);
     }
 
-    public int parseStringToInt(String str){
+    public int parseStringToIntForDate(String str){
         return str.startsWith("0") ? Integer.parseInt(str.substring(1)) : Integer.parseInt(str);
     }
 
